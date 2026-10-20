@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#111418">
+<title>Bistrot Marea · novembre 2026</title>
+<style>
+  :root {
+    --bg: #f6f5f2; --card: #ffffff; --ink: #17181a; --muted: #6b6e73; --line: #e6e3dd; --accent: #2b59c3;
+    --s-bozza: #8b8f96; --s-da_rivedere: #c98a12; --s-da_correggere: #d2442f; --s-pronto: #2b6fd6;
+    --s-approvato: #0f8a74; --s-programmato: #6a4bd1; --s-pubblicato: #2f9e44; --s-errore: #c92a2a; --s-scartato: #b5b8bd;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #111418; --card: #1a1e24; --ink: #ecedef; --muted: #9aa0a8; --line: #2a3038; --accent: #7aa2ff; }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif; }
+  a { color: var(--accent); text-decoration: none; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 16px 16px 80px; }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 4px 0 18px; }
+  .brand { font-weight: 800; letter-spacing: .08em; font-size: 13px; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: 26px; line-height: 1.15; margin: 0 0 6px; letter-spacing: -.01em; }
+  h2 { font-size: 18px; margin: 28px 0 10px; }
+  .sub { color: var(--muted); font-size: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 4px; }
+  .chip { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line);
+    background: var(--card); color: var(--ink); cursor: pointer; user-select: none; }
+  .chip .pt { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+  .chip.on { outline: 2px solid var(--accent); }
+  .badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #fff;
+    padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+  .s-bozza { background: var(--s-bozza); }.s-da_rivedere { background: var(--s-da_rivedere); }.s-da_correggere { background: var(--s-da_correggere); }.s-pronto { background: var(--s-pronto); }.s-approvato { background: var(--s-approvato); }.s-programmato { background: var(--s-programmato); }.s-pubblicato { background: var(--s-pubblicato); }.s-errore { background: var(--s-errore); }.s-scartato { background: var(--s-scartato); }
+  .muted { color: var(--muted); }
+  .footer { margin-top: 40px; font-size: 12px; color: var(--muted); text-align: center; }
+  
+  .griglia { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 14px; }
+  .gs { font-size: 11px; text-align: center; color: var(--muted); font-weight: 600; text-transform: uppercase; }
+  .giorno { min-height: 54px; border-radius: 8px; background: var(--card); border: 1px solid var(--line);
+    padding: 4px; font-size: 12px; color: var(--ink); display: flex; flex-direction: column; gap: 3px; }
+  .giorno.vuoto { background: transparent; border-color: transparent; }
+  .giorno.chiuso { background: repeating-linear-gradient(45deg, var(--card), var(--card) 6px, var(--line) 6px, var(--line) 7px); }
+  .giorno.oggi { outline: 2px solid var(--accent); }
+  .giorno .n { font-weight: 700; }
+  .pallini { display: flex; flex-wrap: wrap; gap: 3px; }
+  .pallino { min-width: 18px; height: 18px; border-radius: 9px; font-size: 10px; font-weight: 700; color: #fff;
+    display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; }
+  .strategia summary { cursor: pointer; font-weight: 700; }
+  .strategia ul { margin: 6px 0 0; padding-left: 18px; }
+  .avviso { border-left: 4px solid var(--s-da_rivedere); background: color-mix(in srgb, var(--s-da_rivedere) 10%, var(--card)); }
+  .post { margin-top: 14px; scroll-margin-top: 12px; }
+  .post.nascosto { display: none; }
+  .post header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .num { width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--card); font-weight: 800;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
+  .quando { font-weight: 700; }
+  .fmt { font-size: 13px; color: var(--muted); }
+  .badge { margin-left: auto; }
+  .media { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+  .media a, .media .vuoto-media { flex: 0 0 auto; position: relative; scroll-snap-align: start; }
+  .media img { display: block; height: 300px; width: auto; max-width: 82vw; border-radius: 10px; background: var(--line); object-fit: cover; }
+  .vuoto-media { height: 120px; width: 100%; border-radius: 10px; border: 1px dashed var(--line);
+    display: flex !important; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; }
+  .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .play span { width: 56px; height: 56px; border-radius: 50%; background: rgba(0,0,0,.55); color: #fff; font-size: 22px;
+    display: flex; align-items: center; justify-content: center; }
+  .contatore { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.55); color: #fff; font-size: 11px;
+    font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+  .meta { font-size: 13px; color: var(--muted); margin: 10px 0 6px; }
+  .caption { white-space: pre-wrap; font-size: 15px; }
+  .hashtag { color: var(--accent); font-size: 14px; margin-top: 8px; word-break: break-word; }
+  .testi-grafica { font-size: 14px; margin-top: 6px; }
+  .note { margin-top: 10px; font-size: 14px; padding: 8px 10px; border-radius: 8px; background: var(--bg); }
+  .note.rossa { border-left: 3px solid var(--s-da_correggere); }
+  .collegamenti { margin-top: 10px; font-size: 13px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .scartato .caption, .scartato .quando { text-decoration: line-through; opacity: .6; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a class="brand" href="../index.html">VOLTA Social</a><span class="sub">aggiornato 21/10 00:46</span></div>
+  
+  <a class="sub" href="../index.html">← tutti i clienti</a>
+  <h1>Bistrot Marea · novembre 2026</h1>
+  <div class="sub">Piano: <strong>pronto</strong> · 5 contenuti · obiettivo: Riempire i pranzi infrasettimanali con il nuovo menu pranzo di lavoro (18€)</div>
+
+  <div class="chips" id="filtri">
+    <span class="chip on" data-stato="tutti">Tutti 5</span>
+    <span class="chip" data-stato="da_correggere"><span class="pt s-da_correggere"></span>da correggere 1</span><span class="chip" data-stato="approvato"><span class="pt s-approvato"></span>approvato 4</span>
+  </div>
+
+  <div class="griglia">
+    <div class="gs">lun</div><div class="gs">mar</div><div class="gs">mer</div><div class="gs">gio</div><div class="gs">ven</div><div class="gs">sab</div><div class="gs">dom</div>
+    
+      <div class="giorno vuoto"></div>
+    
+      <div class="giorno vuoto"></div>
+    
+      <div class="giorno vuoto"></div>
+    
+      <div class="giorno vuoto"></div>
+    
+      <div class="giorno vuoto"></div>
+    
+      <div class="giorno vuoto"></div>
+    
+      
+      <a class="giorno  " href="#g-2026-11-01">
+        <span class="n">1</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno chiuso " href="#g-2026-11-02">
+        <span class="n">2</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-03">
+        <span class="n">3</span>
+        <span class="pallini"><span class="pallino s-approvato" title="carosello">1</span></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-04">
+        <span class="n">4</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-05">
+        <span class="n">5</span>
+        <span class="pallini"><span class="pallino s-approvato" title="reel">2</span></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-06">
+        <span class="n">6</span>
+        <span class="pallini"><span class="pallino s-approvato" title="story">3</span></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-07">
+        <span class="n">7</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-08">
+        <span class="n">8</span>
+        <span class="pallini"><span class="pallino s-approvato" title="foto">4</span></span>
+      </a>
+      
+    
+      
+      <a class="giorno chiuso " href="#g-2026-11-09">
+        <span class="n">9</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-10">
+        <span class="n">10</span>
+        <span class="pallini"><span class="pallino s-da_correggere" title="foto">5</span></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-11">
+        <span class="n">11</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-12">
+        <span class="n">12</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-13">
+        <span class="n">13</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-14">
+        <span class="n">14</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-15">
+        <span class="n">15</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno chiuso " href="#g-2026-11-16">
+        <span class="n">16</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-17">
+        <span class="n">17</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-18">
+        <span class="n">18</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-19">
+        <span class="n">19</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-20">
+        <span class="n">20</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-21">
+        <span class="n">21</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-22">
+        <span class="n">22</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno chiuso " href="#g-2026-11-23">
+        <span class="n">23</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-24">
+        <span class="n">24</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-25">
+        <span class="n">25</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-26">
+        <span class="n">26</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-27">
+        <span class="n">27</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-28">
+        <span class="n">28</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno  " href="#g-2026-11-29">
+        <span class="n">29</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      
+      <a class="giorno chiuso " href="#g-2026-11-30">
+        <span class="n">30</span>
+        <span class="pallini"></span>
+      </a>
+      
+    
+      <div class="giorno vuoto"></div>
+    
+      <div class="giorno vuoto"></div>
+    
+      <div class="giorno vuoto"></div>
+    
+      <div class="giorno vuoto"></div>
+    
+      <div class="giorno vuoto"></div>
+    
+      <div class="giorno vuoto"></div>
+    
+  </div>
+
+  
+  <details class="card strategia" style="margin-top:16px">
+    <summary>Strategia del mese</summary>
+    <p><strong>Pilastri</strong></p><ul><li>Il piatto — <span class="muted">Il pesce del giorno è il motivo n.1 per cui ci scelgono</span></li><li>Pranzo di lavoro — <span class="muted">Obiettivo del mese: far conoscere la nuova formula a chi lavora in zona</span></li><li>La famiglia — <span class="muted">Giulia e Luca rendono il bistrot un posto dove tornare</span></li></ul>
+    <p><strong>Ricorrenze</strong></p><ul><li>2026-11-11 · San Martino — <span class="muted">Cena con castagne e vino novello (prezzo da confermare)</span></li></ul>
+  </details>
+  
+  
+  <div class="card avviso" style="margin-top:12px"><strong>Per Edoardo:</strong> Mancano foto di Giulia e Luca al lavoro: chiedile al cliente entro il 5 novembre.</div>
+  
+
+  
+  <article class="card post approvato" data-stato="approvato" id="p-1">
+    <span id="g-2026-11-03"></span>
+    <header>
+      <span class="num">1</span>
+      <span class="quando">mar 3 · 12:15</span>
+      <span class="fmt">carosello · IG + FB</span>
+      <span class="badge s-approvato">approvato</span>
+    </header>
+    <div class="media">
+      
+        <a href="#" target="_blank" rel="noopener">
+          <img loading="lazy" src="img/2026-11/2026-11-03-a-1.jpg" alt="">
+          
+          <span class="contatore">1/3</span>
+        </a>
+      
+        <a href="#" target="_blank" rel="noopener">
+          <img loading="lazy" src="img/2026-11/2026-11-03-a-2.jpg" alt="">
+          
+          <span class="contatore">2/3</span>
+        </a>
+      
+        <a href="#" target="_blank" rel="noopener">
+          <img loading="lazy" src="img/2026-11/2026-11-03-a-3.jpg" alt="">
+          
+          <span class="contatore">3/3</span>
+        </a>
+      
+    </div>
+    <div class="meta">Pranzo di lavoro · Prenotazioni pranzo</div>
+    <div class="caption">Da oggi la pausa pranzo ha il profumo di mare 🌊
+Primo del giorno, un calice di vino toscano e il caffè: 18€, da martedì a venerdì.
+Scorrete per vedere cosa vi aspetta questa settimana e chiamateci per il tavolo.</div>
+    <div class="testi-grafica"><span class="muted">Testi grafica:</span> Il pranzo di lavoro · Primo + calice + caffè · 18€ / Tagliatelle del giorno / Frittura di paranza</div>
+    <div class="hashtag">#bistrotmarea #pranzoviareggio #viareggio #versilia #pausapranzo</div>
+    
+    
+    
+    
+    <div class="collegamenti">
+      
+      <span class="muted">id 2026-11-03-a</span>
+    </div>
+  </article>
+  
+  <article class="card post approvato" data-stato="approvato" id="p-2">
+    <span id="g-2026-11-05"></span>
+    <header>
+      <span class="num">2</span>
+      <span class="quando">gio 5 · 19:00</span>
+      <span class="fmt">reel · IG + FB</span>
+      <span class="badge s-approvato">approvato</span>
+    </header>
+    <div class="media">
+      
+        <a href="#" target="_blank" rel="noopener">
+          <img loading="lazy" src="img/2026-11/2026-11-05-a.jpg" alt="">
+          <div class="play"><span>▶</span></div>
+          
+        </a>
+      
+    </div>
+    <div class="meta">Il piatto · Notorietà</div>
+    <div class="caption">Quattro piatti, un solo segreto: il pesce arriva la mattina e finisce la sera 🐟
+Da martedì a domenica vi aspettiamo a pranzo e a cena.</div>
+    <div class="testi-grafica"><span class="muted">Testi grafica:</span> Il pescato di oggi · a pranzo e a cena</div>
+    <div class="hashtag">#bistrotmarea #pescedelgiorno #viareggio #darsenaviareggio</div>
+    
+    
+    
+    
+    <div class="collegamenti">
+      
+      <span class="muted">id 2026-11-05-a</span>
+    </div>
+  </article>
+  
+  <article class="card post approvato" data-stato="approvato" id="p-3">
+    <span id="g-2026-11-06"></span>
+    <header>
+      <span class="num">3</span>
+      <span class="quando">ven 6 · 11:30</span>
+      <span class="fmt">story · IG + FB</span>
+      <span class="badge s-approvato">approvato</span>
+    </header>
+    <div class="media">
+      
+        <a href="#" target="_blank" rel="noopener">
+          <img loading="lazy" src="img/2026-11/2026-11-06-a.jpg" alt="">
+          
+          
+        </a>
+      
+    </div>
+    <div class="meta">Pranzo di lavoro · Prenotazioni pranzo — Story promemoria del menu pranzo</div>
+    
+    <div class="testi-grafica"><span class="muted">Testi grafica:</span> Oggi a pranzo · Spaghetti alle arselle · Nel menu pranzo di lavoro a 18€ · Scrivici su WhatsApp</div>
+    
+    
+    
+    
+    
+    <div class="collegamenti">
+      
+      <span class="muted">id 2026-11-06-a</span>
+    </div>
+  </article>
+  
+  <article class="card post approvato" data-stato="approvato" id="p-4">
+    <span id="g-2026-11-08"></span>
+    <header>
+      <span class="num">4</span>
+      <span class="quando">dom 8 · 12:15</span>
+      <span class="fmt">foto · IG + FB</span>
+      <span class="badge s-approvato">approvato</span>
+    </header>
+    <div class="media">
+      
+        <a href="#" target="_blank" rel="noopener">
+          <img loading="lazy" src="img/2026-11/2026-11-08-a.jpg" alt="">
+          
+          
+        </a>
+      
+    </div>
+    <div class="meta">Il piatto · Prenotazioni weekend</div>
+    <div class="caption">La domenica a pranzo ha un solo nome: frittura di paranza 🍋
+Croccante e leggera, con il pesce piccolo della Darsena. 15€, e la domenica si sta bene anche dopo il caffè.</div>
+    
+    <div class="hashtag">#bistrotmarea #frittura #viareggio</div>
+    
+    <div class="note "><strong>Revisore:</strong> Corretto al 2° giro: la data cade di domenica (non sabato) e tolto &#39;il miglior fritto della Versilia&#39; (non dimostrabile).</div>
+    
+    
+    <div class="collegamenti">
+      
+      <span class="muted">id 2026-11-08-a</span>
+    </div>
+  </article>
+  
+  <article class="card post da_correggere" data-stato="da_correggere" id="p-5">
+    <span id="g-2026-11-10"></span>
+    <header>
+      <span class="num">5</span>
+      <span class="quando">mar 10 · 19:00</span>
+      <span class="fmt">foto · IG + FB</span>
+      <span class="badge s-da_correggere">da correggere</span>
+    </header>
+    <div class="media">
+      
+        <a href="#" target="_blank" rel="noopener">
+          <img loading="lazy" src="img/2026-11/2026-11-10-a.jpg" alt="">
+          
+          
+        </a>
+      
+    </div>
+    <div class="meta">La famiglia · Notorietà</div>
+    <div class="caption">Mercoledì 11 novembre si festeggia San Martino 🍷
+Castagne, vino novello e il pesce di stagione: una sera sola, su prenotazione.</div>
+    <div class="testi-grafica"><span class="muted">Testi grafica:</span> Mercoledì 11 novembre · Cena di San Martino · Castagne e vino novello · [DA VERIFICARE: prezzo] · Prenota il tuo tavolo</div>
+    <div class="hashtag">#bistrotmarea #sanmartino #vinonovello #viareggio</div>
+    
+    <div class="note rossa"><strong>Revisore:</strong> Il prezzo della cena di San Martino non è in info.md: va chiesto al cliente, poi il creativo rifà la grafica (ora il prezzo è un segnaposto).</div>
+    
+    
+    <div class="collegamenti">
+      
+      <span class="muted">id 2026-11-10-a</span>
+    </div>
+  </article>
+  
+
+  <div class="footer">Pagina generata da scripts/calendario.py · non indicizzata</div>
+</div>
+
+<script>
+  document.querySelectorAll('#filtri .chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      document.querySelectorAll('#filtri .chip').forEach(function (c) { c.classList.remove('on'); });
+      chip.classList.add('on');
+      var s = chip.dataset.stato;
+      document.querySelectorAll('.post').forEach(function (p) {
+        p.classList.toggle('nascosto', s !== 'tutti' && p.dataset.stato !== s);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

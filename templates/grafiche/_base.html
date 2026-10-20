@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+{% if google_fonts_url %}<link rel="stylesheet" href="{{ google_fonts_url }}">{% endif %}
+<style>
+  :root {
+    --w: {{ larghezza }}px;
+    --h: {{ altezza }}px;
+    --primario: {{ c.primario }};
+    --secondario: {{ c.secondario }};
+    --sfondo: {{ c.sfondo }};
+    --testo: {{ c.testo }};
+    --testo-su-primario: {{ c.testo_su_primario }};
+    --accento: {{ c.accento }};
+    --font-titoli: "{{ f.titoli }}", "DejaVu Serif", Georgia, serif;
+    --font-testi: "{{ f.testi }}", "DejaVu Sans", Helvetica, Arial, sans-serif;
+    --peso-titoli: {{ f.titoli_peso }};
+    --peso-testi: {{ f.testi_peso }};
+    --angoli: {{ s.angoli_px }}px;
+    --velatura: {{ s.velatura_foto }};
+    --tt: {{ 'uppercase' if s.titoli_maiuscoli else 'none' }};
+    --margine: {{ margine }}px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: var(--w); height: var(--h); overflow: hidden; }
+  body {
+    background: {{ 'transparent' if trasparente else 'var(--sfondo)' }};
+    color: var(--testo);
+    font-family: var(--font-testi);
+    font-weight: var(--peso-testi);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+  }
+  .tela { position: relative; width: var(--w); height: var(--h); overflow: hidden; }
+  .foto { position: absolute; inset: 0; background-size: cover; background-position: {{ fuoco }}; }
+  .titolo {
+    font-family: var(--font-titoli); font-weight: var(--peso-titoli); text-transform: var(--tt);
+    font-size: {{ fs_titolo }}px; line-height: 1.05; letter-spacing: -0.01em; text-wrap: balance;
+  }
+  .sottotitolo { font-size: {{ fs_sottotitolo }}px; line-height: 1.3; text-wrap: pretty; }
+  .etichetta {
+    display: inline-block; font-size: 26px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 12px 22px; border-radius: var(--angoli); background: var(--accento); color: #fff;
+  }
+  .logo { height: {{ altezza_logo }}px; width: auto; display: block; }
+  .marchio { font-family: var(--font-titoli); font-weight: var(--peso-titoli); font-size: 34px; letter-spacing: 0.02em; }
+  .firma { font-size: 28px; letter-spacing: 0.06em; opacity: 0.85; }
+  {% block stile %}{% endblock %}
+</style>
+</head>
+<body>
+<div class="tela">
+{% block corpo %}{% endblock %}
+</div>
+</body>
+</html>

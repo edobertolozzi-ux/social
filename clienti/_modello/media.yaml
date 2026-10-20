@@ -1,0 +1,15 @@
+# Catalogo di foto e video su Drive. Compilato dall'agente analista-media.
+aggiornato: ""
+file: []
+# Esempio di voce:
+#  - percorso: materiali/2026-10/IMG_2201.jpg
+#    tipo: foto                 # foto | video
+#    categoria: piatto          # piatto, bevanda, location, esterno, staff, cliente, prodotto, trattamento, prima-dopo, evento, dettaglio, logo, grafica, altro
+#    descrizione: "Tagliatelle ai porcini dall'alto, tovaglia bianca, luce naturale"
+#    soggetti: [tagliatelle, funghi, autunno]
+#    qualita: 5                 # 1-5
+#    orientamento: verticale    # verticale | orizzontale | quadrato
+#    adatta_a: [feed, carosello, story]
+#    durata_s: null             # solo video
+#    usata_in: []               # id dei post, compilato in automatico
+#    note: ""

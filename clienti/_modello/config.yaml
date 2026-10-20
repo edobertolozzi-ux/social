@@ -1,0 +1,39 @@
+# Configurazione del cliente. Creata da scripts/nuovo_cliente.py, modificabile a mano.
+nome: "Nome Attività"
+slug: nome-attivita
+settore: ristorazione        # ristorazione | hotel | beauty | benessere | negozio | servizi | altro
+citta: "Viareggio"
+attivo: true
+
+contatto:
+  referente: ""
+  telefono: ""
+
+canali:
+  instagram: true
+  facebook: true
+
+pubblicazione:
+  scheduler_profilo: ""      # nome del profilo su Upload-Post (di solito = slug)
+  facebook_page_id: ""       # da: python3 scripts/scheduler.py pagine-facebook --profilo <slug>
+  fuso_orario: Europe/Rome
+
+frequenza:
+  post_settimana: 3
+  story_settimana: 3
+  formati_preferiti: [carosello, reel, foto]   # in ordine di priorità
+  orari_preferiti: ["12:30", "19:00"]
+  giorni_chiusura: []        # es. [lunedi] — per non invitare a venire nei giorni di chiusura
+
+drive:
+  remote: drive              # remote rclone (drive o dropbox)
+  cartella: "VOLTA/Nome Attività"
+
+ai:
+  tetto_mensile_eur: 5       # spesa massima al mese per immagini e video AI
+  video_ai_mese_max: 2       # numero massimo di video AI al mese
+
+approvazione:
+  email_report_cliente: ""   # a chi va la bozza del report mensile
+
+note: ""

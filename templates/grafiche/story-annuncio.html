@@ -1,0 +1,25 @@
+{# descrizione: Story verticale 9:16 con foto, titolo grande al centro e pulsante finto con l'invito all'azione. Rispetta le zone coperte dall'interfaccia di Instagram. Testi: etichetta, titolo, sottotitolo, cta #}
+{% extends "_base.html" %}
+{% block stile %}
+  .velo { position: absolute; inset: 0; background: rgba(0,0,0,var(--velatura)); }
+  .pieno { position: absolute; inset: 0; background: var(--primario); }
+  /* zone sicure: ~250px in alto e ~340px in basso sono coperte dall'interfaccia */
+  .area { position: absolute; left: var(--margine); right: var(--margine); top: 260px; bottom: 360px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    color: {{ '#fff' if foto_url else 'var(--testo-su-primario)' }}; gap: 30px; }
+  .area .titolo { font-size: {{ (fs_titolo * 1.2) | int }}px; }
+  .area .sottotitolo { font-size: {{ (fs_sottotitolo * 1.1) | int }}px; max-width: 860px; }
+  .pulsante { margin-top: 20px; background: #fff; color: #111; font-size: 34px; font-weight: 700;
+    padding: 24px 46px; border-radius: 60px; letter-spacing: 0.02em; }
+  .logo-story { position: absolute; top: 140px; left: 0; right: 0; display: flex; justify-content: center; }
+{% endblock %}
+{% block corpo %}
+  {% if foto_url %}<div class="foto" style="background-image:url('{{ foto_url }}')"></div><div class="velo"></div>{% else %}<div class="pieno"></div>{% endif %}
+  {% if s.mostra_logo %}<div class="logo-story">{% if logo_url %}<img class="logo" src="{{ logo_chiaro_url or logo_url }}" alt="">{% else %}<span class="marchio" style="color:#fff">{{ nome }}</span>{% endif %}</div>{% endif %}
+  <div class="area">
+    {% if t.etichetta %}<span class="etichetta">{{ t.etichetta }}</span>{% endif %}
+    {% if t.titolo %}<div class="titolo">{{ t.titolo }}</div>{% endif %}
+    {% if t.sottotitolo %}<div class="sottotitolo">{{ t.sottotitolo }}</div>{% endif %}
+    {% if t.cta %}<div class="pulsante">{{ t.cta }}</div>{% endif %}
+  </div>
+{% endblock %}

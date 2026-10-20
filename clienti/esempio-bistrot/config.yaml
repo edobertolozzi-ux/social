@@ -1,0 +1,39 @@
+# CLIENTE DI ESEMPIO (inventato) per provare il sistema. Si può cancellare quando arriva il primo cliente vero.
+nome: "Bistrot Marea"
+slug: esempio-bistrot
+settore: ristorazione
+citta: "Viareggio"
+attivo: false               # false: le routine lo ignorano
+
+contatto:
+  referente: "Giulia (titolare)"
+  telefono: ""
+
+canali:
+  instagram: true
+  facebook: true
+
+pubblicazione:
+  scheduler_profilo: "esempio-bistrot"
+  facebook_page_id: "123456789"
+  fuso_orario: Europe/Rome
+
+frequenza:
+  post_settimana: 3
+  story_settimana: 2
+  formati_preferiti: [carosello, reel, foto]
+  orari_preferiti: ["12:15", "19:00"]
+  giorni_chiusura: [lunedi]
+
+drive:
+  remote: drive
+  cartella: "VOLTA/Bistrot Marea"
+
+ai:
+  tetto_mensile_eur: 5
+  video_ai_mese_max: 2
+
+approvazione:
+  email_report_cliente: ""
+
+note: "Cliente di prova: nessun account social reale collegato."

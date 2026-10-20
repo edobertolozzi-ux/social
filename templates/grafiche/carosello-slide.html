@@ -1,0 +1,46 @@
+{# descrizione: Slide di carosello. La prima è la copertina (foto + titolo grande), le altre hanno foto e didascalia con numero di slide; senza foto diventano slide di solo testo. Testi per slide: titolo, sottotitolo #}
+{% extends "_base.html" %}
+{% block stile %}
+  .velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,calc(var(--velatura) * 0.6)) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 45%, rgba(0,0,0,calc(var(--velatura) + 0.3)) 100%); }
+  .copertina { position: absolute; left: var(--margine); right: var(--margine); bottom: calc(var(--margine) * 1.2); color: #fff; }
+  .copertina .titolo { font-size: {{ (fs_titolo * 1.15) | int }}px; }
+  .copertina .sottotitolo { margin-top: 20px; }
+  .scorri { margin-top: 34px; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.9; }
+  .scorri::after { content: "  →"; }
+  .didascalia { position: absolute; left: 0; right: 0; bottom: 0; background: var(--sfondo); color: var(--testo);
+    padding: 38px var(--margine) 44px; }
+  .didascalia .titolo { font-size: {{ (fs_titolo * 0.72) | int }}px; }
+  .didascalia .sottotitolo { margin-top: 10px; font-size: {{ (fs_sottotitolo * 0.9) | int }}px; opacity: 0.85; }
+  .numero { position: absolute; top: var(--margine); right: var(--margine); font-size: 24px; font-weight: 700;
+    letter-spacing: 0.08em; color: #fff; background: rgba(0,0,0,0.35); padding: 8px 16px; border-radius: 40px; }
+  .solo-testo { position: absolute; inset: 0; background: var(--primario); color: var(--testo-su-primario);
+    display: flex; flex-direction: column; justify-content: center; padding: var(--margine); }
+  .solo-testo .sottotitolo { margin-top: 26px; }
+  .logo-alto { position: absolute; top: var(--margine); left: var(--margine); }
+{% endblock %}
+{% block corpo %}
+  {% if slide == 1 %}
+    {% if foto_url %}<div class="foto" style="background-image:url('{{ foto_url }}')"></div><div class="velo"></div>{% else %}<div class="solo-testo"></div>{% endif %}
+    {% if s.mostra_logo %}<div class="logo-alto">{% if logo_url %}<img class="logo" src="{{ logo_chiaro_url or logo_url }}" alt="">{% else %}<span class="marchio" style="color:#fff">{{ nome }}</span>{% endif %}</div>{% endif %}
+    <div class="copertina">
+      {% if t.titolo %}<div class="titolo">{{ t.titolo }}</div>{% endif %}
+      {% if t.sottotitolo %}<div class="sottotitolo">{{ t.sottotitolo }}</div>{% endif %}
+      {% if totale and totale > 1 %}<div class="scorri">Scorri</div>{% endif %}
+    </div>
+  {% elif foto_url %}
+    <div class="foto" style="background-image:url('{{ foto_url }}'); bottom: {{ 230 if (t.titolo or t.sottotitolo) else 0 }}px"></div>
+    {% if totale %}<div class="numero">{{ slide }}/{{ totale }}</div>{% endif %}
+    {% if t.titolo or t.sottotitolo %}
+    <div class="didascalia">
+      {% if t.titolo %}<div class="titolo">{{ t.titolo }}</div>{% endif %}
+      {% if t.sottotitolo %}<div class="sottotitolo">{{ t.sottotitolo }}</div>{% endif %}
+    </div>
+    {% endif %}
+  {% else %}
+    <div class="solo-testo">
+      {% if t.titolo %}<div class="titolo">{{ t.titolo }}</div>{% endif %}
+      {% if t.sottotitolo %}<div class="sottotitolo">{{ t.sottotitolo }}</div>{% endif %}
+    </div>
+    {% if totale %}<div class="numero">{{ slide }}/{{ totale }}</div>{% endif %}
+  {% endif %}
+{% endblock %}

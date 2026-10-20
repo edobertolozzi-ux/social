@@ -1,0 +1,15 @@
+{# descrizione: Testo trasparente da sovrapporre all'inizio di un reel (il gancio dei primi secondi). Usato da reel_da_foto.py e monta_video.py con --titolo. Testi: titolo, sottotitolo #}
+{% extends "_base.html" %}
+{% block stile %}
+  .area { position: absolute; left: var(--margine); right: var(--margine); top: 300px;
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 22px; }
+  .titolo { color: #fff; font-size: {{ (fs_titolo * 1.1) | int }}px;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.6); }
+  .sottotitolo { color: #fff; background: var(--accento); padding: 12px 26px; border-radius: var(--angoli); font-weight: 700; }
+{% endblock %}
+{% block corpo %}
+  <div class="area">
+    {% if t.titolo %}<div class="titolo">{{ t.titolo }}</div>{% endif %}
+    {% if t.sottotitolo %}<div class="sottotitolo">{{ t.sottotitolo }}</div>{% endif %}
+  </div>
+{% endblock %}

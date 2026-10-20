@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block titolo %}VOLTA Social · Calendario{% endblock %}
+{% block stile %}
+  .clienti { display: grid; gap: 12px; }
+  .cliente h3 { margin: 0 0 2px; font-size: 18px; }
+  .mesi { display: grid; gap: 8px; margin-top: 12px; }
+  .mese { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center;
+    padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; color: var(--ink); }
+  .barra { grid-column: 1 / -1; display: flex; height: 6px; border-radius: 4px; overflow: hidden; background: var(--line); }
+  .barra span { display: block; height: 100%; }
+  .riga-stati { font-size: 12px; color: var(--muted); }
+  .inattivo { opacity: .6; }
+{% endblock %}
+{% block corpo %}
+  <h1>Calendario editoriale</h1>
+  <p class="sub">{{ clienti|length }} {{ 'cliente' if clienti|length == 1 else 'clienti' }} · tocca un mese per vedere i post</p>
+  <div class="clienti">
+  {% for c in clienti %}
+    <section class="card cliente {{ '' if c.attivo else 'inattivo' }}">
+      <h3>{{ c.nome }}</h3>
+      <div class="sub">{{ c.citta }}{% if not c.attivo %} · non attivo{% endif %}</div>
+      <div class="mesi">
+      {% for m in c.mesi %}
+        <a class="mese" href="{{ c.slug }}/{{ m.mese }}.html">
+          <strong>{{ m.nome }}</strong>
+          <span class="badge s-{{ m.stato_badge }}">{{ m.stato_piano|replace('_', ' ') }}</span>
+          <div class="barra">{% for s, n in m.conteggi %}<span class="s-{{ s }}" style="width: {{ (100 * n / m.totale) | round(1) }}%"></span>{% endfor %}</div>
+          <div class="riga-stati">{{ m.totale }} contenuti · {% for s, n in m.conteggi %}{{ n }} {{ s|replace('_', ' ') }}{% if not loop.last %}, {% endif %}{% endfor %}</div>
+        </a>
+      {% else %}
+        <div class="sub">Nessun piano ancora.</div>
+      {% endfor %}
+      {% for r in c.report %}
+        <a class="sub" href="{{ c.slug }}/report-{{ r }}.html">Report {{ r }}</a>
+      {% endfor %}
+      </div>
+    </section>
+  {% endfor %}
+  </div>
+{% endblock %}

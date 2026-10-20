@@ -1,0 +1,26 @@
+{# descrizione: Foto a tutto schermo con titolo e sottotitolo in basso su velatura. Per annunci, novità, piatti. Testi: titolo, sottotitolo, etichetta (opz.) #}
+{% extends "_base.html" %}
+{% block stile %}
+  .velo { position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,calc(var(--velatura) + 0.25)) 100%); }
+  .testi { position: absolute; left: var(--margine); right: var(--margine); bottom: var(--margine); color: #fff; }
+  .testi .titolo { text-shadow: 0 2px 24px rgba(0,0,0,0.25); }
+  .testi .sottotitolo { margin-top: 22px; opacity: 0.95; }
+  .testi .etichetta { margin-bottom: 26px; }
+  .in-alto { position: absolute; top: var(--margine); left: var(--margine); right: var(--margine);
+    display: flex; justify-content: space-between; align-items: center; color: #fff; }
+{% endblock %}
+{% block corpo %}
+  {% if foto_url %}<div class="foto" style="background-image:url('{{ foto_url }}')"></div>{% endif %}
+  <div class="velo"></div>
+  {% if s.mostra_logo %}
+  <div class="in-alto">
+    {% if logo_url %}<img class="logo" src="{{ logo_chiaro_url or logo_url }}" alt="">{% else %}<span class="marchio">{{ nome }}</span>{% endif %}
+  </div>
+  {% endif %}
+  <div class="testi">
+    {% if t.etichetta %}<span class="etichetta">{{ t.etichetta }}</span>{% endif %}
+    {% if t.titolo %}<div class="titolo">{{ t.titolo }}</div>{% endif %}
+    {% if t.sottotitolo %}<div class="sottotitolo">{{ t.sottotitolo }}</div>{% endif %}
+  </div>
+{% endblock %}

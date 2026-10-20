@@ -1,0 +1,25 @@
+{# descrizione: Testo protagonista su fondo a tinta unita: citazioni, recensioni, frasi del titolare, avvisi. Foto opzionale piccola. Testi: titolo (la frase), sottotitolo (autore o fonte) #}
+{% extends "_base.html" %}
+{% block stile %}
+  .tela { background: var(--secondario); }
+  .contenuto { position: absolute; inset: var(--margine); display: flex; flex-direction: column; justify-content: center; }
+  .virgolette { font-family: var(--font-titoli); font-size: 220px; line-height: 0.6; color: var(--accento); height: 110px; }
+  .titolo { color: var(--testo); }
+  .autore { margin-top: 40px; font-size: 32px; letter-spacing: 0.05em; color: var(--testo); opacity: 0.8; }
+  .autore::before { content: "— "; }
+  .piede { position: absolute; left: var(--margine); right: var(--margine); bottom: var(--margine);
+    display: flex; justify-content: space-between; align-items: center; color: var(--testo); }
+  .tondo { width: 150px; height: 150px; border-radius: 50%; background-size: cover; background-position: center;
+    border: 6px solid var(--sfondo); }
+{% endblock %}
+{% block corpo %}
+  <div class="contenuto">
+    <div class="virgolette">“</div>
+    {% if t.titolo %}<div class="titolo">{{ t.titolo }}</div>{% endif %}
+    {% if t.sottotitolo %}<div class="autore">{{ t.sottotitolo }}</div>{% endif %}
+  </div>
+  <div class="piede">
+    <div>{% if s.mostra_logo %}{% if logo_url %}<img class="logo" src="{{ logo_url }}" alt="">{% else %}<span class="marchio">{{ nome }}</span>{% endif %}{% endif %}</div>
+    {% if foto_url %}<div class="tondo" style="background-image:url('{{ foto_url }}')"></div>{% elif s.firma %}<div class="firma">{{ s.firma }}</div>{% endif %}
+  </div>
+{% endblock %}

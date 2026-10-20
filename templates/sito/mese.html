@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block titolo %}{{ nome_cliente }} · {{ nome_mese }}{% endblock %}
+{% block stile %}
+  .griglia { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 14px; }
+  .gs { font-size: 11px; text-align: center; color: var(--muted); font-weight: 600; text-transform: uppercase; }
+  .giorno { min-height: 54px; border-radius: 8px; background: var(--card); border: 1px solid var(--line);
+    padding: 4px; font-size: 12px; color: var(--ink); display: flex; flex-direction: column; gap: 3px; }
+  .giorno.vuoto { background: transparent; border-color: transparent; }
+  .giorno.chiuso { background: repeating-linear-gradient(45deg, var(--card), var(--card) 6px, var(--line) 6px, var(--line) 7px); }
+  .giorno.oggi { outline: 2px solid var(--accent); }
+  .giorno .n { font-weight: 700; }
+  .pallini { display: flex; flex-wrap: wrap; gap: 3px; }
+  .pallino { min-width: 18px; height: 18px; border-radius: 9px; font-size: 10px; font-weight: 700; color: #fff;
+    display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; }
+  .strategia summary { cursor: pointer; font-weight: 700; }
+  .strategia ul { margin: 6px 0 0; padding-left: 18px; }
+  .avviso { border-left: 4px solid var(--s-da_rivedere); background: color-mix(in srgb, var(--s-da_rivedere) 10%, var(--card)); }
+  .post { margin-top: 14px; scroll-margin-top: 12px; }
+  .post.nascosto { display: none; }
+  .post header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .num { width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--card); font-weight: 800;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
+  .quando { font-weight: 700; }
+  .fmt { font-size: 13px; color: var(--muted); }
+  .badge { margin-left: auto; }
+  .media { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+  .media a, .media .vuoto-media { flex: 0 0 auto; position: relative; scroll-snap-align: start; }
+  .media img { display: block; height: 300px; width: auto; max-width: 82vw; border-radius: 10px; background: var(--line); object-fit: cover; }
+  .vuoto-media { height: 120px; width: 100%; border-radius: 10px; border: 1px dashed var(--line);
+    display: flex !important; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; }
+  .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .play span { width: 56px; height: 56px; border-radius: 50%; background: rgba(0,0,0,.55); color: #fff; font-size: 22px;
+    display: flex; align-items: center; justify-content: center; }
+  .contatore { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.55); color: #fff; font-size: 11px;
+    font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+  .meta { font-size: 13px; color: var(--muted); margin: 10px 0 6px; }
+  .caption { white-space: pre-wrap; font-size: 15px; }
+  .hashtag { color: var(--accent); font-size: 14px; margin-top: 8px; word-break: break-word; }
+  .testi-grafica { font-size: 14px; margin-top: 6px; }
+  .note { margin-top: 10px; font-size: 14px; padding: 8px 10px; border-radius: 8px; background: var(--bg); }
+  .note.rossa { border-left: 3px solid var(--s-da_correggere); }
+  .collegamenti { margin-top: 10px; font-size: 13px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .scartato .caption, .scartato .quando { text-decoration: line-through; opacity: .6; }
+{% endblock %}
+{% block corpo %}
+  <a class="sub" href="../index.html">← tutti i clienti</a>
+  <h1>{{ nome_cliente }} · {{ nome_mese }}</h1>
+  <div class="sub">Piano: <strong>{{ (piano.stato_piano or 'bozza')|replace('_', ' ') }}</strong> · {{ post|length }} contenuti{% if obiettivo %} · obiettivo: {{ obiettivo }}{% endif %}</div>
+
+  <div class="chips" id="filtri">
+    <span class="chip on" data-stato="tutti">Tutti {{ post|length }}</span>
+    {% for s, n in conteggi %}<span class="chip" data-stato="{{ s }}"><span class="pt s-{{ s }}"></span>{{ s|replace('_', ' ') }} {{ n }}</span>{% endfor %}
+  </div>
+
+  <div class="griglia">
+    {% for g in ['lun','mar','mer','gio','ven','sab','dom'] %}<div class="gs">{{ g }}</div>{% endfor %}
+    {% for cella in celle %}
+      {% if cella %}
+      <a class="giorno {{ 'chiuso' if cella.chiuso }} {{ 'oggi' if cella.oggi }}" href="#g-{{ cella.data }}">
+        <span class="n">{{ cella.giorno }}</span>
+        <span class="pallini">{% for p in cella.post %}<span class="pallino s-{{ p.stato }}" title="{{ p.formato }}">{{ p.numero }}</span>{% endfor %}</span>
+      </a>
+      {% else %}<div class="giorno vuoto"></div>{% endif %}
+    {% endfor %}
+  </div>
+
+  {% if strategia %}
+  <details class="card strategia" style="margin-top:16px">
+    <summary>Strategia del mese</summary>
+    {% if strategia.pilastri %}<p><strong>Pilastri</strong></p><ul>{% for p in strategia.pilastri %}<li>{{ p.nome }}{% if p.perche %} — <span class="muted">{{ p.perche }}</span>{% endif %}</li>{% endfor %}</ul>{% endif %}
+    {% if strategia.ricorrenze %}<p><strong>Ricorrenze</strong></p><ul>{% for r in strategia.ricorrenze %}<li>{{ r.data }} · {{ r.nome }}{% if r.uso %} — <span class="muted">{{ r.uso }}</span>{% endif %}</li>{% endfor %}</ul>{% endif %}
+  </details>
+  {% endif %}
+  {% if strategia and strategia.note_per_edoardo %}
+  <div class="card avviso" style="margin-top:12px"><strong>Per Edoardo:</strong> {{ strategia.note_per_edoardo }}</div>
+  {% endif %}
+
+  {% for p in post %}
+  <article class="card post {{ p.stato }}" data-stato="{{ p.stato }}" id="p-{{ p.numero }}">
+    {% if p.primo_del_giorno %}<span id="g-{{ p.data }}"></span>{% endif %}
+    <header>
+      <span class="num">{{ p.numero }}</span>
+      <span class="quando">{{ p.etichetta_data }} · {{ p.ora }}</span>
+      <span class="fmt">{{ p.formato }} · {{ p.canali }}</span>
+      <span class="badge s-{{ p.stato }}">{{ p.stato|replace('_', ' ') }}</span>
+    </header>
+    <div class="media">
+      {% for m in p.media %}
+        <a href="{{ m.link or '#' }}" target="_blank" rel="noopener">
+          {% if m.anteprima %}<img loading="lazy" src="{{ m.anteprima }}" alt="">{% else %}<div class="vuoto-media">{{ m.nome }}</div>{% endif %}
+          {% if m.video %}<div class="play"><span>▶</span></div>{% endif %}
+          {% if p.media|length > 1 %}<span class="contatore">{{ loop.index }}/{{ p.media|length }}</span>{% endif %}
+        </a>
+      {% else %}
+        <div class="vuoto-media">contenuto non ancora prodotto · {{ p.lavorazione }}</div>
+      {% endfor %}
+    </div>
+    <div class="meta">{% if p.pilastro %}{{ p.pilastro }}{% endif %}{% if p.obiettivo %} · {{ p.obiettivo }}{% endif %}{% if p.idea and not p.caption %} — {{ p.idea }}{% endif %}</div>
+    {% if p.caption %}<div class="caption">{{ p.caption }}</div>{% endif %}
+    {% if p.testi_grafica %}<div class="testi-grafica"><span class="muted">Testi grafica:</span> {{ p.testi_grafica }}</div>{% endif %}
+    {% if p.hashtag %}<div class="hashtag">{{ p.hashtag }}</div>{% endif %}
+    {% if p.primo_commento %}<div class="meta">Primo commento: {{ p.primo_commento }}</div>{% endif %}
+    {% if p.nota_revisore %}<div class="note {{ 'rossa' if p.stato == 'da_correggere' }}"><strong>Revisore:</strong> {{ p.nota_revisore }}</div>{% endif %}
+    {% if p.note_edoardo %}<div class="note"><strong>Richiesta di Edoardo:</strong> {{ p.note_edoardo }}</div>{% endif %}
+    {% if p.errore %}<div class="note rossa"><strong>Errore:</strong> {{ p.errore }}</div>{% endif %}
+    <div class="collegamenti">
+      {% if p.url %}<a href="{{ p.url }}" target="_blank" rel="noopener">Vedi pubblicato ↗</a>{% endif %}
+      <span class="muted">id {{ p.id }}</span>
+    </div>
+  </article>
+  {% endfor %}
+{% endblock %}
+{% block script %}
+<script>
+  document.querySelectorAll('#filtri .chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      document.querySelectorAll('#filtri .chip').forEach(function (c) { c.classList.remove('on'); });
+      chip.classList.add('on');
+      var s = chip.dataset.stato;
+      document.querySelectorAll('.post').forEach(function (p) {
+        p.classList.toggle('nascosto', s !== 'tutti' && p.dataset.stato !== s);
+      });
+    });
+  });
+</script>
+{% endblock %}

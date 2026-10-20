@@ -1,0 +1,24 @@
+# Valori del brand letti da scripts/grafica.py. Colori in esadecimale, font da Google Fonts.
+colori:
+  primario: "#1F3A5F"
+  secondario: "#E8DCC8"
+  sfondo: "#FAF7F2"
+  testo: "#1C1C1C"
+  testo_su_primario: "#FFFFFF"
+  accento: "#C9732B"
+
+font:
+  titoli: "Playfair Display"
+  titoli_peso: 600
+  testi: "Inter"
+  testi_peso: 400
+
+logo: ""                     # percorso su Drive, es. materiali/logo/logo.png (meglio PNG trasparente)
+logo_chiaro: ""              # versione chiara per sfondi scuri (opzionale)
+
+stile:
+  angoli_px: 0               # arrotondamento dei riquadri
+  titoli_maiuscoli: false
+  velatura_foto: 0.35        # opacità dello scuro sopra le foto quando c'è testo sopra (0-0.7)
+  mostra_logo: true
+  firma: ""                  # testo piccolo in basso, es. "bistrotmarea.it"

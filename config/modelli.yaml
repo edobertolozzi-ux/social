@@ -1,0 +1,13 @@
+# Modelli AI usati da scripts/genera_ai.py (OpenRouter). Cambiali qui quando escono modelli migliori.
+# Elenco aggiornato dei modelli video: python3 scripts/genera_ai.py modelli-video
+immagine:
+  modello: "google/gemini-2.5-flash-image"
+  costo_stimato_usd: 0.04        # usato solo se OpenRouter non restituisce il costo reale
+
+video:
+  modello: "kwaivgi/kling-v3.0-std"
+  costo_al_secondo_usd: 0.126    # prezzo di listino ottobre 2026, verificare con modelli-video
+  risoluzione: "720p"
+  audio: false
+
+cambio_usd_eur: 0.92

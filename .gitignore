@@ -1,0 +1,7 @@
+# file di lavoro e cache (foto e video scaricati da Drive): mai nel repository
+.cache/
+__pycache__/
+*.pyc
+*.tmp
+.env
+.DS_Store

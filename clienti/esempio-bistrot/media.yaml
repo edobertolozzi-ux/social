@@ -1,0 +1,80 @@
+# Catalogo di foto e video su Drive. Compilato dall'agente analista-media.
+aggiornato: "2026-10-20"
+file:
+  - percorso: materiali/2026-10/IMG_2201.jpg
+    tipo: foto
+    categoria: piatto
+    descrizione: "Tagliatelle in bianco dall'alto su tavolo di legno scuro, spicchio di limone"
+    soggetti: [tagliatelle, pasta, limone]
+    qualita: 5
+    orientamento: verticale
+    adatta_a: [feed, carosello, story]
+    durata_s: null
+    usata_in: []
+    note: ""
+  - percorso: materiali/2026-10/IMG_2207.jpg
+    tipo: foto
+    categoria: piatto
+    descrizione: "Piatto con sugo rosso dall'alto, tavolo di legno, inquadratura orizzontale"
+    soggetti: [pasta, sugo, pomodoro]
+    qualita: 4
+    orientamento: orizzontale
+    adatta_a: [feed, carosello]
+    durata_s: null
+    usata_in: []
+    note: ""
+  - percorso: materiali/2026-10/IMG_2210.jpg
+    tipo: foto
+    categoria: piatto
+    descrizione: "Frittura dorata in piatto bianco, tavolo chiaro, inquadratura quadrata"
+    soggetti: [frittura, paranza]
+    qualita: 4
+    orientamento: quadrato
+    adatta_a: [feed, carosello]
+    durata_s: null
+    usata_in: []
+    note: ""
+  - percorso: materiali/2026-10/IMG_2215.jpg
+    tipo: foto
+    categoria: piatto
+    descrizione: "Spaghetti alle arselle su tavolo blu ardesia, dall'alto"
+    soggetti: [arselle, spaghetti]
+    qualita: 5
+    orientamento: verticale
+    adatta_a: [feed, carosello, story]
+    durata_s: null
+    usata_in: []
+    note: ""
+  - percorso: materiali/2026-10/IMG_2230.jpg
+    tipo: foto
+    categoria: location
+    descrizione: "Sala con tavoli contro la vetrata al tramonto, luce arancione"
+    soggetti: [sala, tramonto, tavoli]
+    qualita: 4
+    orientamento: orizzontale
+    adatta_a: [feed, carosello]
+    durata_s: null
+    usata_in: []
+    note: ""
+  - percorso: materiali/2026-10/VID_2240.mp4
+    tipo: video
+    categoria: altro
+    descrizione: "Video di prova verticale (barre di colore)"
+    soggetti: [prova]
+    qualita: 3
+    orientamento: verticale
+    adatta_a: [reel, story]
+    durata_s: 8
+    usata_in: []
+    note: "file di test"
+  - percorso: materiali/2026-10/VID_2241.mp4
+    tipo: video
+    categoria: altro
+    descrizione: "Video di prova orizzontale (frattale)"
+    soggetti: [prova]
+    qualita: 3
+    orientamento: orizzontale
+    adatta_a: [reel]
+    durata_s: 6
+    usata_in: []
+    note: "file di test"

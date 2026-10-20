@@ -1,0 +1,164 @@
+cliente: esempio-bistrot
+mese: "2026-11"
+stato_piano: pronto
+aggiornato: "2026-10-20"
+
+strategia:
+  obiettivo_mese: "Riempire i pranzi infrasettimanali con il nuovo menu pranzo di lavoro (18€)"
+  pilastri:
+    - nome: "Il piatto"
+      perche: "Il pesce del giorno è il motivo n.1 per cui ci scelgono"
+    - nome: "Pranzo di lavoro"
+      perche: "Obiettivo del mese: far conoscere la nuova formula a chi lavora in zona"
+    - nome: "La famiglia"
+      perche: "Giulia e Luca rendono il bistrot un posto dove tornare"
+  ricorrenze:
+    - data: "2026-11-11"
+      nome: "San Martino"
+      uso: "Cena con castagne e vino novello (prezzo da confermare)"
+  note_per_edoardo: "Mancano foto di Giulia e Luca al lavoro: chiedile al cliente entro il 5 novembre."
+
+post:
+  - id: "2026-11-03-a"
+    data: "2026-11-03"
+    ora: "12:15"
+    canali: [instagram, facebook]
+    formato: carosello
+    pilastro: "Pranzo di lavoro"
+    obiettivo: "Prenotazioni pranzo"
+    idea: "Lancio del menu pranzo di lavoro: copertina + 2 piatti"
+    media:
+      lavorazione: grafica
+      sorgente:
+        - materiali/2026-10/IMG_2201.jpg
+        - materiali/2026-10/IMG_2215.jpg
+        - materiali/2026-10/IMG_2210.jpg
+      template: carosello-slide
+      testi_grafica:
+        - {titolo: "Il pranzo di lavoro", sottotitolo: "Primo + calice + caffè · 18€"}
+        - {titolo: "Tagliatelle del giorno"}
+        - {titolo: "Frittura di paranza"}
+      prompt_ai: ""
+      pronto:
+        - pronti/2026-11/2026-11-03-a-1.jpg
+        - pronti/2026-11/2026-11-03-a-2.jpg
+        - pronti/2026-11/2026-11-03-a-3.jpg
+    caption: |
+      Da oggi la pausa pranzo ha il profumo di mare 🌊
+      Primo del giorno, un calice di vino toscano e il caffè: 18€, da martedì a venerdì.
+      Scorrete per vedere cosa vi aspetta questa settimana e chiamateci per il tavolo.
+    hashtag: ["#bistrotmarea", "#pranzoviareggio", "#viareggio", "#versilia", "#pausapranzo"]
+    primo_commento: ""
+    alt_text: "Tre piatti del bistrot: tagliatelle, spaghetti alle arselle e frittura"
+    stato: approvato
+    revisione: {esito: "ok", note: ""}
+    note_edoardo: ""
+
+  - id: "2026-11-05-a"
+    data: "2026-11-05"
+    ora: "19:00"
+    canali: [instagram, facebook]
+    formato: reel
+    pilastro: "Il piatto"
+    obiettivo: "Notorietà"
+    idea: "Reel dalle foto dei piatti di novembre, gancio sul pescato del giorno"
+    media:
+      lavorazione: reel_da_foto
+      sorgente:
+        - materiali/2026-10/IMG_2215.jpg
+        - materiali/2026-10/IMG_2207.jpg
+        - materiali/2026-10/IMG_2201.jpg
+        - materiali/2026-10/IMG_2230.jpg
+      template: ""
+      testi_grafica:
+        - {titolo: "Il pescato di oggi", sottotitolo: "a pranzo e a cena"}
+      prompt_ai: ""
+      pronto:
+        - pronti/2026-11/2026-11-05-a.mp4
+    caption: |
+      Quattro piatti, un solo segreto: il pesce arriva la mattina e finisce la sera 🐟
+      Da martedì a domenica vi aspettiamo a pranzo e a cena.
+    hashtag: ["#bistrotmarea", "#pescedelgiorno", "#viareggio", "#darsenaviareggio"]
+    primo_commento: ""
+    alt_text: ""
+    stato: approvato
+    revisione: {esito: "ok", note: ""}
+    note_edoardo: ""
+
+  - id: "2026-11-06-a"
+    data: "2026-11-06"
+    ora: "11:30"
+    canali: [instagram, facebook]
+    formato: story
+    pilastro: "Pranzo di lavoro"
+    obiettivo: "Prenotazioni pranzo"
+    idea: "Story promemoria del menu pranzo"
+    media:
+      lavorazione: grafica
+      sorgente: [materiali/2026-10/IMG_2215.jpg]
+      template: story-annuncio
+      testi_grafica:
+        - {etichetta: "Oggi a pranzo", titolo: "Spaghetti alle arselle", sottotitolo: "Nel menu pranzo di lavoro a 18€", cta: "Scrivici su WhatsApp"}
+      prompt_ai: ""
+      pronto:
+        - pronti/2026-11/2026-11-06-a.jpg
+    caption: ""
+    hashtag: []
+    stato: approvato
+    revisione: {esito: "ok", note: ""}
+    note_edoardo: ""
+
+  - id: "2026-11-08-a"
+    data: "2026-11-08"
+    ora: "12:15"
+    canali: [instagram, facebook]
+    formato: foto
+    pilastro: "Il piatto"
+    obiettivo: "Prenotazioni weekend"
+    idea: "La frittura di paranza, piatto simbolo del sabato"
+    media:
+      lavorazione: nessuna
+      sorgente: [materiali/2026-10/IMG_2210.jpg]
+      template: ""
+      testi_grafica: []
+      prompt_ai: ""
+      pronto:
+        - pronti/2026-11/2026-11-08-a.jpg
+    caption: |
+      La domenica a pranzo ha un solo nome: frittura di paranza 🍋
+      Croccante e leggera, con il pesce piccolo della Darsena. 15€, e la domenica si sta bene anche dopo il caffè.
+    hashtag: ["#bistrotmarea", "#frittura", "#viareggio"]
+    primo_commento: ""
+    alt_text: "Frittura di paranza in un piatto bianco"
+    stato: approvato
+    revisione:
+      esito: ok
+      note: "Corretto al 2° giro: la data cade di domenica (non sabato) e tolto 'il miglior fritto della Versilia' (non dimostrabile)."
+    note_edoardo: ""
+
+  - id: "2026-11-10-a"
+    data: "2026-11-10"
+    ora: "19:00"
+    canali: [instagram, facebook]
+    formato: foto
+    pilastro: "La famiglia"
+    obiettivo: "Notorietà"
+    idea: "Annuncio della cena di San Martino"
+    media:
+      lavorazione: grafica
+      sorgente: [materiali/2026-10/IMG_2230.jpg]
+      template: post-promo
+      testi_grafica:
+        - {etichetta: "Mercoledì 11 novembre", titolo: "Cena di San Martino", sottotitolo: "Castagne e vino novello", prezzo: "[DA VERIFICARE: prezzo]", cta: "Prenota il tuo tavolo"}
+      prompt_ai: ""
+      pronto:
+        - pronti/2026-11/2026-11-10-a.jpg
+    caption: |
+      Mercoledì 11 novembre si festeggia San Martino 🍷
+      Castagne, vino novello e il pesce di stagione: una sera sola, su prenotazione.
+    hashtag: ["#bistrotmarea", "#sanmartino", "#vinonovello", "#viareggio"]
+    primo_commento: ""
+    alt_text: "Sala del bistrot al tramonto"
+    stato: da_correggere
+    revisione: {esito: "correggere", note: 'Il prezzo della cena di San Martino non è in info.md: va chiesto al cliente, poi il creativo rifà la grafica (ora il prezzo è un segnaposto).'}
+    note_edoardo: ""

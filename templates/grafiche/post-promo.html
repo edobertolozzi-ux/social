@@ -1,0 +1,39 @@
+{# descrizione: Foto in alto e riquadro colorato in basso con etichetta, titolo, prezzo e invito all'azione. Per promo, menu del giorno, offerte. Testi: etichetta, titolo, sottotitolo, prezzo, cta #}
+{% extends "_base.html" %}
+{% block stile %}
+  .alto { position: absolute; left: 0; right: 0; top: 0; height: {{ 58 if formato != '9:16' else 55 }}%; overflow: hidden; }
+  .alto .foto { position: absolute; inset: 0; }
+  .basso { position: absolute; left: 0; right: 0; bottom: 0; top: {{ 58 if formato != '9:16' else 55 }}%;
+    background: var(--primario); color: var(--testo-su-primario);
+    padding: calc(var(--margine) * 0.8) var(--margine) {{ '300px' if formato == '9:16' else 'var(--margine)' }};
+    display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+  .riga { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; }
+  {% set lp = (t.prezzo or '')|length %}
+  .prezzo { font-family: var(--font-titoli); font-weight: var(--peso-titoli); line-height: 1; color: var(--accento);
+    font-size: {{ 96 if lp <= 5 else 72 if lp <= 8 else 40 }}px; max-width: 42%; text-align: right; overflow-wrap: anywhere; }
+  .cta { margin-top: 10px; font-size: 30px; font-weight: 700; letter-spacing: 0.04em; }
+  .cta::after { content: " →"; }
+  .logo-angolo { position: absolute; top: var(--margine); left: var(--margine); }
+  .badge-logo { background: var(--sfondo); padding: 14px 18px; border-radius: var(--angoli); }
+{% endblock %}
+{% block corpo %}
+  <div class="alto">
+    {% if foto_url %}<div class="foto" style="background-image:url('{{ foto_url }}')"></div>{% endif %}
+  </div>
+  {% if s.mostra_logo %}
+  <div class="logo-angolo">
+    {% if logo_url %}<div class="badge-logo"><img class="logo" src="{{ logo_url }}" alt=""></div>{% endif %}
+  </div>
+  {% endif %}
+  <div class="basso">
+    {% if t.etichetta %}<div><span class="etichetta">{{ t.etichetta }}</span></div>{% endif %}
+    <div class="riga">
+      <div>
+        {% if t.titolo %}<div class="titolo">{{ t.titolo }}</div>{% endif %}
+        {% if t.sottotitolo %}<div class="sottotitolo" style="margin-top:14px">{{ t.sottotitolo }}</div>{% endif %}
+      </div>
+      {% if t.prezzo %}<div class="prezzo">{{ t.prezzo }}</div>{% endif %}
+    </div>
+    {% if t.cta %}<div class="cta">{{ t.cta }}</div>{% endif %}
+  </div>
+{% endblock %}

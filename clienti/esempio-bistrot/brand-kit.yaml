@@ -1,0 +1,24 @@
+# Brand kit del cliente di esempio
+colori:
+  primario: "#0F3B4C"        # blu petrolio, il mare d'inverno
+  secondario: "#EFE6D8"      # sabbia
+  sfondo: "#FBF8F3"
+  testo: "#1B1B1B"
+  testo_su_primario: "#FFFFFF"
+  accento: "#B5552B"         # terracotta
+
+font:
+  titoli: "Fraunces"
+  titoli_peso: 600
+  testi: "Work Sans"
+  testi_peso: 400
+
+logo: ""
+logo_chiaro: ""
+
+stile:
+  angoli_px: 6
+  titoli_maiuscoli: false
+  velatura_foto: 0.3
+  mostra_logo: true
+  firma: "bistrotmarea.it"

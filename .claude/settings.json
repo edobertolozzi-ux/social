@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 scripts/*)",
+      "Bash(bash scripts/salva.sh*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git pull*)",
+      "Bash(git fetch*)",
+      "Bash(ffmpeg*)",
+      "Bash(ffprobe*)",
+      "Bash(rclone lsjson*)",
+      "Bash(rclone lsd*)",
+      "Bash(ls*)",
+      "WebSearch",
+      "WebFetch"
+    ],
+    "deny": [
+      "Bash(rclone delete*)",
+      "Bash(rclone purge*)",
+      "Bash(rclone sync*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)"
+    ]
+  }
+}
