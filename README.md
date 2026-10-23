@@ -4,7 +4,7 @@ Il social media manager automatico di VOLTA: un gruppo di agenti AI dentro Claud
 
 ## Come si usa (dal telefono)
 
-App Claude → scheda **Code** → sessione sul repository `volta-social`. Poi si parla normalmente, anche a voce:
+App Claude → scheda **Code** → sessione sul repository `social`. Poi si parla normalmente, anche a voce:
 
 | Scrivi o detta | Succede |
 |---|---|

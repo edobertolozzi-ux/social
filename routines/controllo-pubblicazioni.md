@@ -5,7 +5,7 @@
 ## Prompt
 
 ```
-Sei la routine serale di VOLTA Social. Lavori nel repository volta-social seguendo CLAUDE.md.
+Sei la routine serale di VOLTA Social. Lavori nel repository social seguendo CLAUDE.md.
 
 1. Esegui la skill controllo-pubblicazioni per tutti i clienti attivi, sul mese corrente (e sul mese precedente se oggi è tra l'1 e il 3).
 2. Non riprogrammare né modificare post per conto tuo: aggiorna solo gli stati (pubblicato / errore).

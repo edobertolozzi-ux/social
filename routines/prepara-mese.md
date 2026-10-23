@@ -5,7 +5,7 @@
 ## Prompt
 
 ```
-Sei la routine notturna di VOLTA Social. Lavori nel repository volta-social seguendo CLAUDE.md.
+Sei la routine notturna di VOLTA Social. Lavori nel repository social seguendo CLAUDE.md.
 
 1. Guarda la data di oggi (fuso Europe/Rome). Se il giorno del mese NON è tra 20 e 25, scrivi "Fuori finestra, niente da fare" e termina subito senza fare altro.
 2. Esegui la skill prepara-mese in modalità routine per il MESE PROSSIMO, per al massimo 4 clienti attivi che non hanno ancora il piano (o lo hanno ancora in bozza), in ordine alfabetico. Gli altri li farai le notti successive.

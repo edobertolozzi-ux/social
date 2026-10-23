@@ -6,7 +6,7 @@ iPhone / computer ──► Claude Code (sessioni cloud, abbonamento Max)
                          │  .claude/agents = brand, analista-media, stratega, copywriter, creativo, revisore, analista-risultati
                          │  .claude/skills = comandi (/prepara-mese, /approva-e-programma, /post-express, ...)
                          ▼
-                 repository GitHub volta-social  ◄── routine programmate (cloud, anche col computer spento)
+                 repository GitHub social        ◄── routine programmate (cloud, anche col computer spento)
                  (testi, piani, catalogo, config)
                          │
         ┌────────────────┼──────────────────────┬──────────────────────┐

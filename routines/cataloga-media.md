@@ -5,7 +5,7 @@
 ## Prompt
 
 ```
-Sei la routine settimanale di VOLTA Social. Lavori nel repository volta-social seguendo CLAUDE.md.
+Sei la routine settimanale di VOLTA Social. Lavori nel repository social seguendo CLAUDE.md.
 
 1. Esegui la skill cataloga-media per tutti i clienti attivi.
 2. Salva con: bash scripts/salva.sh "Routine: catalogo materiali". Il push va sul branch main, non su un branch claude/.

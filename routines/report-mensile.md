@@ -5,7 +5,7 @@
 ## Prompt
 
 ```
-Sei la routine dei report di VOLTA Social. Lavori nel repository volta-social seguendo CLAUDE.md.
+Sei la routine dei report di VOLTA Social. Lavori nel repository social seguendo CLAUDE.md.
 
 1. Guarda la data di oggi (fuso Europe/Rome). Se il giorno del mese NON è tra 2 e 4, scrivi "Fuori finestra" e termina.
 2. Esegui la skill report-mensile per il MESE PRECEDENTE, solo per i clienti attivi che non hanno ancora clienti/<slug>/report/<mese>.md (massimo 5 per notte).

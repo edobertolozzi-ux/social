@@ -1,6 +1,6 @@
 # Configurazione iniziale (una volta sola, circa un'ora, dal computer)
 
-Alla fine di questa guida potrai fare tutto dall'iPhone: app Claude → scheda **Code** → sessione su `volta-social`.
+Alla fine di questa guida potrai fare tutto dall'iPhone: app Claude → scheda **Code** → sessione sul repository `social`.
 
 ## Cosa ti serve
 
@@ -18,13 +18,13 @@ Alla fine di questa guida potrai fare tutto dall'iPhone: app Claude → scheda *
 ## 1. Repository su GitHub
 
 1. Crea un account su github.com (se non ce l'hai).
-2. **New repository** → nome `volta-social` → **Private** → senza README → **Create**.
-3. Caricare i file: **dimmelo in chat e lo carico io**. In alternativa, da Claude Code sul computer: apri la cartella `volta-social` scompattata e scrivi "carica questo progetto sul mio repository GitHub volta-social, branch main".
+2. Il repository è **github.com/edobertolozzi-ux/social**, già caricato.
+3. Rendilo **privato** prima di aggiungere clienti veri: su GitHub → repository `social` → **Settings** → in fondo **Danger Zone** → **Change visibility** → **Make private**.
 
 ## 2. Collega GitHub a Claude Code
 
 1. Vai su **claude.ai/code** e completa l'onboarding.
-2. Quando lo chiede, installa la **Claude GitHub App** e dalle accesso al repository `volta-social`.
+2. Quando lo chiede, installa la **Claude GitHub App** e dalle accesso al repository `social`.
 
 ## 3. Accesso a Google Drive (token per rclone)
 
@@ -54,7 +54,7 @@ playwright.azureedge.net
 ```
 SCHEDULER=uploadpost
 EMAIL_EDOARDO=la-tua-email@gmail.com
-CALENDARIO_URL=https://volta-social.pages.dev
+CALENDARIO_URL=https://social-volta.pages.dev
 RCLONE_CONFIG_DRIVE_TYPE=drive
 RCLONE_CONFIG_DRIVE_SCOPE=drive
 RCLONE_CONFIG_DRIVE_TOKEN='{"access_token":"...incolla qui il token del passo 3..."}'
@@ -82,9 +82,9 @@ Salva. Il primo avvio dell'ambiente richiede qualche minuto (installa ffmpeg, rc
 
 ## 7. Pagina calendario (Cloudflare Pages, gratis)
 
-1. Registrati su cloudflare.com → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → scegli `volta-social`.
+1. Registrati su cloudflare.com → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → scegli `social`, nome del progetto `social-volta`.
 2. Build command: vuoto. **Build output directory: `site`**. Branch: `main`. Deploy.
-3. Rendila privata: **Zero Trust** → **Access** → **Applications** → **Add an application** → *Self-hosted* → dominio `volta-social.pages.dev` → policy *Allow* con *Emails* = la tua email. Accederai con un codice che ti arriva per email (una volta ogni tanto).
+3. Rendila privata: **Zero Trust** → **Access** → **Applications** → **Add an application** → *Self-hosted* → dominio `social-volta.pages.dev` → policy *Allow* con *Emails* = la tua email. Accederai con un codice che ti arriva per email (una volta ogni tanto).
 4. Copia l'indirizzo nella variabile `CALENDARIO_URL` dell'ambiente (passo 4).
 
 Da qui in poi la pagina si aggiorna da sola a ogni salvataggio.
@@ -95,7 +95,7 @@ Su claude.ai → impostazioni → **Connettori**: tieni collegati **Gmail** (avv
 
 ## 9. Prova dal telefono
 
-App Claude → **Code** → nuova sessione → repository `volta-social`, ambiente `VOLTA` → scrivi:
+App Claude → **Code** → nuova sessione → repository `social`, ambiente `VOLTA` → scrivi:
 
 > verifica il setup
 
